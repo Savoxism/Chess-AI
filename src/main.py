@@ -5,6 +5,8 @@ from const import *
 from game import Game
 from square import Square
 from move import Move
+from piece import Pawn
+
 
 class Main:
     
@@ -76,14 +78,11 @@ class Main:
                 
                 # click release
                 elif event.type == pygame.MOUSEBUTTONUP:
-                    
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
-                        
                         released_row = dragger.mouseY // SQSIZE
-                        
                         released_col = dragger.mouseX // SQSIZE
-                        
+                         
                         # Create possible moves
                         initial = Square(dragger.initial_row, dragger.initial_col)
                         final = Square(released_row, released_col)
@@ -94,6 +93,13 @@ class Main:
                             captured = board.squares[released_row][released_col].has_piece()                      
                             board.move(dragger.piece, move)
                             
+                            # Check for pawn promotion
+                            if isinstance(dragger.piece, Pawn) and (released_row == 0 or released_row == 7):
+                                promotion_piece = input("Promote to (q, r, b, k): ").lower()
+                                if promotion_piece not in ['q', 'r', 'b', 'k']:
+                                    promotion_piece = 'q'  # Default to queen if invalid input
+                                board.check_promotion(dragger.piece, final, promotion_piece)
+                                
                             board.set_true_en_passant(dragger.piece)
                             
                             # sounds

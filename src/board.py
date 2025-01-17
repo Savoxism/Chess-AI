@@ -63,9 +63,16 @@ class Board:
     def valid_move(self, piece, move):
         return move in piece.moves
     
-    def check_promotion(self, piece, final):
+    def check_promotion(self, piece, final, promotion_piece='q'):
         if final.row == 0 or final.row == 7:
-            self.squares[final.row][final.col].piece = Queen(piece.color)
+            if promotion_piece == 'q':
+                self.squares[final.row][final.col].piece = Queen(piece.color)
+            elif promotion_piece == 'r':
+                self.squares[final.row][final.col].piece = Rook(piece.color)
+            elif promotion_piece == 'b':
+                self.squares[final.row][final.col].piece = Bishop(piece.color)
+            elif promotion_piece == 'k':
+                self.squares[final.row][final.col].piece = Knight(piece.color)
             
     def castling(self, initial, final):
         return abs(initial.col - final.col) == 2
