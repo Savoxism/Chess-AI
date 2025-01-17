@@ -48,7 +48,7 @@ class Main:
                         piece = board.squares[clicked_row][clicked_col].piece
                         # valid piece (color)?
                         if piece.color == game.next_player:
-                            board.calc_moves(piece, clicked_row, clicked_col)
+                            board.calc_moves(piece, clicked_row, clicked_col, bool=True)
                             dragger.save_initial(event.pos) # incase of an invalid move
                             dragger.drag_piece(piece)
                             # show methods
@@ -111,6 +111,12 @@ class Main:
                     # Changing theme
                     if event.key == pygame.K_t:
                         game.change_theme()
+                        
+                    elif event.key ==  pygame.K_r:
+                        game.reset()
+                        game = self.game
+                        board = self.game.board
+                        dragger = self.game.dragger
                         
                 # Quit
                 elif event.type == pygame.QUIT:

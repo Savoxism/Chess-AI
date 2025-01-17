@@ -4,6 +4,8 @@ import os
 from sound import Sound
 from theme import Theme
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SOUNDS_DIR = os.path.join(BASE_DIR, "assets", "sounds")
 
 class Config:
     
@@ -13,8 +15,9 @@ class Config:
         self.idx = 0
         self.theme = self.themes[self.idx]
         self.font = pygame.font.SysFont('monospace', 18, bold=True)
-        self.move_sound = Sound(os.path.join("assets/sounds/move.wav"))
-        self.capture_sound = Sound(os.path.join("assets/sounds/capture.wav"))
+        self.move_sound = Sound(os.path.join(SOUNDS_DIR, "move.wav"))
+        self.capture_sound = Sound(os.path.join(SOUNDS_DIR, "capture.wav"))
+
     
     def change_theme(self):
         self.idx += 1

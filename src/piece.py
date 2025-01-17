@@ -14,9 +14,10 @@ class Piece:
         self.texture_rec = texture_rec
         
     def set_texture(self, size=80):
-        self.texture = os.path.join(
-            f'assets/images/imgs-{size}px/{self.color}_{self.name}.png'
-        )
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        IMAGES_DIR = os.path.join(BASE_DIR, "assets", "images", f"imgs-{size}px")
+        
+        self.texture = os.path.join(IMAGES_DIR, f"{self.color}_{self.name}.png")
         
     def add_move(self, move): 
         self.moves.append(move)
@@ -53,6 +54,8 @@ class Queen(Piece):
 class King(Piece):
     
     def __init__(self, color):
+        self.left_rook = None
+        self.right_rook = None
         super().__init__('king', color, 10000.0)
         
         
