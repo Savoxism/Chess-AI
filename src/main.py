@@ -30,14 +30,13 @@ class Main:
             game.show_last_move(screen)
             game.show_moves(screen)
             game.show_pieces(screen)
-            
             game.show_hover(screen)
             
             if dragger.dragging:
                 dragger.update_blit(screen)
             
             for event in pygame.event.get():
-                
+                    
                 # Click 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     dragger.update_mouse(event.pos)
@@ -61,10 +60,11 @@ class Main:
                         
                 # mouse motion
                 elif event.type == pygame.MOUSEMOTION:
-                    motion_row = event.pos[1] // SQSIZE
-                    motion_col = event.pos[0] // SQSIZE
+                    motion_row = min(max(event.pos[1] // SQSIZE, 0), 7)
+                    motion_col = min(max(event.pos[0] // SQSIZE, 0), 7)
                     
-                    game.set_hover(motion_row, motion_col)
+                    if 0 <= motion_row < ROWS and 0 <= motion_col < COLS:
+                        game.set_hover(motion_row, motion_col)
                     
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
@@ -82,6 +82,15 @@ class Main:
                         dragger.update_mouse(event.pos)
                         released_row = dragger.mouseY // SQSIZE
                         released_col = dragger.mouseX // SQSIZE
+                        
+                        # Check if released was outside board
+                        if not (0 <= released_row < ROWS and 0 <= released_col < COLS):
+                            # Return piece to original position
+                            game.show_bg(screen)
+                            game.show_last_move(screen)
+                            game.show_pieces(screen)
+                            dragger.undrag_piece()
+                            continue
                          
                         # Create possible moves
                         initial = Square(dragger.initial_row, dragger.initial_col)

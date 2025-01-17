@@ -202,7 +202,6 @@ class Board:
                                 # Append new valid move
                                 piece.add_move(move)
                                     
-        
         def knight_moves():
             # 8 possible moves
             possible_moves = [
@@ -315,7 +314,6 @@ class Board:
                             if not self.in_check(piece, move): 
                                 # Append new valid move
                                 piece.add_move(move)
-                            else: break
                         else:
                             # Append new valid move
                             piece.add_move(move)
