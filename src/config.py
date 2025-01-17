@@ -3,9 +3,7 @@ import os
 
 from sound import Sound
 from theme import Theme
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SOUNDS_DIR = os.path.join(BASE_DIR, "assets", "sounds")
+from const import *
 
 class Config:
     

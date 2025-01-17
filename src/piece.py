@@ -5,7 +5,7 @@ class Piece:
     def __init__(self, name, color, value, texture=None, texture_rec=None): # texture here are just images
         self.name = name
         self.color = color
-        value_sign = 1 if color == "white" else -1
+        value_sign = 1 if color == "white" else -1 
         self.value = value * value_sign
         self.moves = []
         self.moved = False
@@ -29,6 +29,7 @@ class Pawn(Piece):
     
     def __init__(self, color):
         self.dir = -1 if color == "white" else 1
+        self.en_passant = False
         super().__init__('pawn', color, 1.0)
         
 class Knight(Piece):

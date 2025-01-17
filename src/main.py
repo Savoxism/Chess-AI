@@ -91,9 +91,11 @@ class Main:
                         
                         # valid move?
                         if board.valid_move(dragger.piece, move):
-                            captured = board.squares[released_row][released_col].has_piece()
-                            
+                            captured = board.squares[released_row][released_col].has_piece()                      
                             board.move(dragger.piece, move)
+                            
+                            board.set_true_en_passant(dragger.piece)
+                            
                             # sounds
                             game.play_sound(captured)
                             # show methods
@@ -102,8 +104,7 @@ class Main:
                             game.show_pieces(screen)
                             # next turn
                             game.next_turn()
-                            
-                    
+                                          
                     dragger.undrag_piece()
                 
                 # Key press
@@ -122,10 +123,6 @@ class Main:
                 elif event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            
-            
-            
-    
             
             pygame.display.update()
     
