@@ -1,0 +1,6 @@
+There is actually a nicer way of avoiding putting the king in check. This method does not need any copy or simulating all possible moves, it does not need to check for all opponent's possible moves. It works like this.... you must have tracked the kings position every move and save it. Make the move even if it puts the king in check, from there check from the king's position if any piece attacks it by looking at capture moves from the king's position. If it results in a capture, just undo the move. it happens really fast you wont see the invalid move being executed. The idea is that you make a function that assumes the king can move like a queen, bishop, rook, knight or pawn capture. 
+
+It is much simpler coz you are only checking from the king's position to move like any other attacking pieces, if they are present from these attacking positions, then that means the last move is invalid so undo the move.
+
+king check bugs
+AI minimax 
